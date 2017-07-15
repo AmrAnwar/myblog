@@ -29,7 +29,7 @@
                                 {{ post.title }}
                             </h2>
                             <h3 class="post-subtitle">
-                                {{ post.content|linebreaks|truncatechars:10 }}
+                                {{ post.content|striptags|truncatechars:10 }}
                             </h3>
                         </a>
                         <p class="post-meta">Posted by {{ post.user }} {{ post.timestamp|timesince }}</p>

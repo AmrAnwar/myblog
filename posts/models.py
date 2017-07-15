@@ -20,7 +20,11 @@ types = (
 
 
 def upload_location(instance, filename):
-    return "%s/%s" % (instance.id, filename)
+    if instance.id:
+        new_id = instance.id
+    else:
+        new_id = Post.objects.order_by("id").last().id + 1
+    return "%s/%s" % (new_id, filename)
 
 
 # Create your models here.
