@@ -10,12 +10,12 @@ import sys
 from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
 
-path = "/home/AmrAnwar/today"
+path = "/home/AmrAnwar00/myblog"
 
 if path not in sys.path:
     sys.path.append(path)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "today.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myblog.settings")
 
 application = get_wsgi_application()
 application = DjangoWhiteNoise(application)

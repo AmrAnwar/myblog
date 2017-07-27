@@ -3,7 +3,7 @@
                 Posts List
             {% endblock %}
 {% block content %}
-        <header class="intro-header" style="background-image: url('http://127.0.0.1:8000/media/img/bluesky.jpg')">
+        <header class="intro-header" style="background-image: url('http://amranwar00.pythonanywhere.com/media/img/bluesky.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -29,7 +29,7 @@
                                 {{ post.title }}
                             </h2>
                             <h3 class="post-subtitle">
-                                {{ post.content|striptags|truncatechars:10 }}
+                                {{ post.content|striptags|truncatechars:40 }}
                             </h3>
                         </a>
                         <p class="post-meta">Posted by {{ post.user }} {{ post.timestamp|timesince }}</p>
