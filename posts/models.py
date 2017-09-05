@@ -9,6 +9,11 @@ from django.shortcuts import reverse
 from colorfield.fields import ColorField
 from markdown_deux import markdown
 from django.utils.safestring import mark_safe
+# from froala_editor.fields import FroalaField
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
+import os
+
 User = get_user_model()
 
 types = (
@@ -33,6 +38,9 @@ class Post(models.Model):
     user = models.ForeignKey(User, default=1, null=False)
     title = models.CharField(null=False, max_length=50)
     content = models.TextField(null=False, blank=False)
+    #content = HTMLField()
+    # content = FroalaField()
+
     # content = MarkdownField(null=False)
     timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
     update = models.DateTimeField(auto_now_add=False, auto_now=True)
@@ -63,9 +71,14 @@ class Post(models.Model):
         content = self.content
         return mark_safe(markdown(content))
 
+    def delete_photo(self):
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+            self.image = None
+
 
 def create_slug(instance, new_slug=None):
-    slug = slugify(instance.title)
+    slug = slugify(instance.title, allow_unicode=True)
     if new_slug is not None:
         slug = new_slug
     qs = Post.objects.filter(slug=slug).order_by("-id")
@@ -82,3 +95,8 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_receiver, sender=Post)
+
+@receiver(pre_delete, sender=Post)
+def delete_file_if_exists(sender, instance, *args, **kwargs):
+    instance.delete_photo()
+

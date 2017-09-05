@@ -28,6 +28,11 @@ urlpatterns = [
     url(r'^posts/', include("posts.urls",namespace="posts")),
     url(r'^about', about, name="about"),
     # url(r'^markdown/', include('django_markdown.urls')),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^froala_editor/', include('froala_editor.urls')),
+
+    # url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
     url(r'^$', main_page, name="main"),
 
 ]

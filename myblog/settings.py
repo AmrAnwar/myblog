@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'colorfield',
     'django_markdown',
     'crispy_forms',
-    'markdown_deux',
+    # 'markdown_deux',
+    # 'froala_editor',
+    'tinymce',
     #
     'posts',
 
